@@ -21,7 +21,7 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="absolute top-1/4 left-6 md:top-1/3 md:left-10 lg:top-1/3 xl:top-1/4 xl:pl-28 space-y-4">
+      <div className="absolute top-1/4 left-6 md:top-1/3 md:left-10 lg:top-1/3 xl:top-1/4 xl:pl-32 space-y-4">
         <p className="text-sm font-medium text-white uppercase">Summer 2020</p>
         <h1 className="text-4xl font-bold text-white leading-tight lg:text-5xl xl:text-6xl">
           New Collection
