@@ -39,18 +39,21 @@ async function uploadProduct(product) {
     if (imageId) {
       const document = {
         _type: 'product',
+        _id: product._id,
         name: product.name,
         description: product.description,
         price: product.price,
-        image: {
+        sizes: product.sizes || [], // Map sizes array
+        colors: product.colors || [], // Map colors array
+        imageURL: {
           _type: 'image',
           asset: {
             _ref: imageId,
           },
         },
         category: product.category,
-        discountPercent: product.discountPercent,
-        isNew: product.isNew,
+        discountPercent: product.discountPercent || 0, // Default to 0 if missing
+        isNew: product.isNew || false, // Default to false if missing
       };
 
       const createdProduct = await client.create(document);
