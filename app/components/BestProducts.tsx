@@ -4,19 +4,17 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
+import Link from "next/link";
 
 // Define the Product interface
 export interface Product {
   _id: string;
   name: string;
-  imageUrl: string | null; // Processed image URL
-  category: string;
+  imageUrl: string | null;
   discountPercent: number;
   isNew: boolean;
   colors: string[];
-  description: string;
   price: number;
-  sizes: string[];
 }
 
 // Initialize the Sanity image URL builder
@@ -35,19 +33,14 @@ const BestsellerProducts: React.FC = () => {
         _id,
         name,
         imageURL,
-        category,
         discountPercent,
         isNew,
         colors,
-        description,
-        price,
-        sizes
+        price
       }`;
 
       try {
         const sanityProducts = await client.fetch(query);
-
-        console.log("Fetched Products:", sanityProducts); // Debug fetched data
 
         // Transform products to build proper image URLs
         const transformedProducts = sanityProducts.map((product: any) => ({
@@ -95,25 +88,36 @@ const BestsellerProducts: React.FC = () => {
                     <p className="text-gray-500">No Image Available</p>
                   </div>
                 )}
+
+                {/* New Tag */}
                 {product.isNew && (
                   <span className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 text-xs font-bold rounded">
                     New
                   </span>
                 )}
-              <button className="absolute w-full inset-0 bg-black rounded-lg bg-opacity-40 text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                Add to Cart
-              </button>
+
+                {/* Discount Tag */}
+                {product.discountPercent > 0 && (
+                  <span className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">
+                    {product.discountPercent}% Off
+                  </span>
+                )}
+
+                <button className="absolute w-full inset-0 bg-black rounded-lg bg-opacity-40 text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                  Add to Cart
+                </button>
               </div>
               <h3 className="text-base font-bold text-gray-900">
                 {product.name}
               </h3>
-              <p className="text-sm text-gray-500">{product.category}</p>
               <div className="flex justify-center items-center space-x-2 mt-2">
                 <p className="text-[#BDBDBD] font-bold line-through">
-                  {product.price.toFixed(2)}
+                  {product.discountPercent > 0
+                    ? product.price.toFixed(2)
+                    : null}
                 </p>
                 <p className="text-[#23856D] font-bold">
-                  {(
+                  ${(
                     product.price *
                     (1 - product.discountPercent / 100)
                   ).toFixed(2)}
@@ -128,20 +132,9 @@ const BestsellerProducts: React.FC = () => {
                   ></div>
                 ))}
               </div>
-              <p className="text-sm text-gray-500 mt-4">
-                {product.description}
-              </p>
-              <div className="flex justify-center items-center space-x-2 mt-2">
-                <span className="text-xs text-gray-500">Available Sizes:</span>
-                {product.sizes.map((size, index) => (
-                  <span
-                    key={index}
-                    className="px-2 py-1 border border-gray-300 text-xs rounded"
-                  >
-                    {size}
-                  </span>
-                ))}
-              </div>
+              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                <Link href={`/shop/${product._id}`}>View Detail</Link>
+              </button>
             </div>
           ))
         ) : (
