@@ -12,6 +12,7 @@ import {
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useCart } from "@/app/context/CartContext" ; 
 
 // Define the Product interface
 export interface Product {
@@ -32,6 +33,7 @@ const urlFor = (source: any) => builder.image(source).width(300).height(300).url
 
 const AllProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+    const { addToCart } = useCart(); 
 
   // Fetch product data from Sanity
   useEffect(() => {
@@ -205,8 +207,17 @@ const AllProducts: React.FC = () => {
                             </span>
                           )}
           
-                          <button className="absolute w-full inset-0 bg-black rounded-lg bg-opacity-40 text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                            Add to Cart
+                          <button className="absolute w-full inset-0 bg-black rounded-lg bg-opacity-40 text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center" onClick={() =>
+          addToCart({
+            id: product._id,
+            name: product.name,
+            imageUrl: product.imageUrl,
+            price: product.price * (1 - product.discountPercent / 100),
+            quantity: 1,
+          })
+        }
+      >
+        Add to Cart
                           </button>
                         </div>
                         <h3 className="text-base font-bold text-gray-900">
