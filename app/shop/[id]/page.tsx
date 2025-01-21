@@ -7,6 +7,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import Header from "@/app/components/Header";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import { useCart } from "@/app/context/CartContext" ; 
 
 // Define the Product interface
 export interface Product {
@@ -32,6 +33,8 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const { addToCart } = useCart(); 
+  
 
   useEffect(() => {
     const productId = window.location.pathname.split("/").pop(); // Extract product ID from the URL
@@ -111,7 +114,7 @@ const ProductDetail: React.FC = () => {
           <div className="flex items-center text-gray-500">
             <span>Home</span>
             <span className="mx-2">/</span>
-            <span>{product.category}</span>
+            <span>{product.category.toUpperCase()}</span>
             <span className="mx-2">/</span>
             <span>{product.name}</span>
           </div>
@@ -184,9 +187,20 @@ const ProductDetail: React.FC = () => {
               </div>
             </div>
 
-            <button className="mt-4 bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition">
-              Add to Cart
-            </button>
+            <button
+        className="mt-4 bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition"
+        onClick={() =>
+          addToCart({
+            id: product._id,
+            name: product.name,
+            imageUrl: product.imageUrl,
+            price: product.price * (1 - product.discountPercent / 100),
+            quantity: 1,
+          })
+        }
+      >
+        Add to Cart
+      </button>
           </div>
         </div>
 
