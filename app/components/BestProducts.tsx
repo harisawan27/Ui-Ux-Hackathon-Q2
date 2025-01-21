@@ -1,16 +1,15 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
-import { stringToPath } from "sanity";
-import urlBuilder from "@sanity/image-url";
+import imageUrlBuilder from "@sanity/image-url";
 
 // Define the Product interface
 export interface Product {
   _id: string;
   name: string;
-  imageUrl: string;
+  imageUrl: string | null; // Processed image URL
   category: string;
   discountPercent: number;
   isNew: boolean;
@@ -20,16 +19,22 @@ export interface Product {
   sizes: string[];
 }
 
+// Initialize the Sanity image URL builder
+const builder = imageUrlBuilder(client);
+
+// Helper function to build image URLs
+const urlFor = (source: any) => builder.image(source).width(300).height(300).url();
+
 const BestsellerProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   // Fetch product data from Sanity
   useEffect(() => {
     const fetchProducts = async () => {
-      const query = `*[_type == "product"]{
+      const query = `*[_type == "product"][0..11]{
         _id,
         name,
-        "imageUrl": image.asset->url,
+        imageURL,
         category,
         discountPercent,
         isNew,
@@ -39,15 +44,21 @@ const BestsellerProducts: React.FC = () => {
         sizes
       }`;
 
-      const sanityProducts = await client.fetch<Product[]>(query);
+      try {
+        const sanityProducts = await client.fetch(query);
 
-      console.log("Fetched Products:", sanityProducts); // Debug fetched data
+        console.log("Fetched Products:", sanityProducts); // Debug fetched data
 
-      const transformedProducts = sanityProducts.map((product) => ({
-        ...product
-      }));
+        // Transform products to build proper image URLs
+        const transformedProducts = sanityProducts.map((product: any) => ({
+          ...product,
+          imageUrl: product.imageURL?.asset ? urlFor(product.imageURL) : null,
+        }));
 
-      setProducts(transformedProducts);
+        setProducts(transformedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
 
     fetchProducts();
@@ -70,19 +81,28 @@ const BestsellerProducts: React.FC = () => {
           products.map((product) => (
             <div key={product._id} className="text-center">
               <div className="relative mb-4">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  layout="responsive"
-                  width={239}
-                  height={296}
-                  className="rounded-lg"
-                />
+                {product.imageUrl ? (
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.name}
+                    layout="responsive"
+                    width={239}
+                    height={296}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <div className="w-full h-[296px] bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p className="text-gray-500">No Image Available</p>
+                  </div>
+                )}
                 {product.isNew && (
-                  <span className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-bold rounded">
+                  <span className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 text-xs font-bold rounded">
                     New
                   </span>
                 )}
+              <button className="absolute w-full inset-0 bg-black rounded-lg bg-opacity-40 text-white font-semibold text-lg opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                Add to Cart
+              </button>
               </div>
               <h3 className="text-base font-bold text-gray-900">
                 {product.name}
@@ -90,10 +110,13 @@ const BestsellerProducts: React.FC = () => {
               <p className="text-sm text-gray-500">{product.category}</p>
               <div className="flex justify-center items-center space-x-2 mt-2">
                 <p className="text-[#BDBDBD] font-bold line-through">
-                 {product.price.toFixed(2)}
+                  {product.price.toFixed(2)}
                 </p>
                 <p className="text-[#23856D] font-bold">
-                  {(product.price * (1 - product.discountPercent / 100)).toFixed(2)}
+                  {(
+                    product.price *
+                    (1 - product.discountPercent / 100)
+                  ).toFixed(2)}
                 </p>
               </div>
               <div className="flex justify-center items-center mt-2 space-x-2">
