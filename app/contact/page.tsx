@@ -5,13 +5,15 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { 
   Phone, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin,
   MapPin,
   Mail
 } from 'lucide-react';
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter
+} from "react-icons/fa";
 
 const ContactPage = () => {
   return (
@@ -35,16 +37,16 @@ const ContactPage = () => {
             {/* Social Media Icons */}
             <div className="flex space-x-4">
               <Link href="https://x.com/harisawan27" className="text-gray-600 hover:text-blue-500">
-                <Twitter size={24} />
+                <FaTwitter size={24} />
               </Link>
               <Link href="https://www.facebook.com/profile.php?id=61558545486623" className="text-gray-600 hover:text-blue-500">
-                <Facebook size={24} />
+                <FaFacebook size={24} />
               </Link>
               <Link href="https://www.instagram.com/mharisawan27" className="text-gray-600 hover:text-blue-500">
-                <Instagram size={24} />
+                <FaInstagram size={24} />
               </Link>
               <Link href="https://www.linkedin.com/in/m-haris-awan/" className="text-gray-600 hover:text-blue-500">
-                <Linkedin size={24} />
+                <FaLinkedin size={24} />
               </Link>
             </div>
           </div>
