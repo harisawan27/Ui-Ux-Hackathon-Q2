@@ -6,9 +6,22 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
 
+interface FormData {
+  name: string;
+  contact: string;
+  email: string;
+  address: string;
+  city: string;
+  zip: string;
+}
+
+interface Errors {
+  [key: string]: string;
+}
+
 const Checkout = () => {
   const { cart, clearCart } = useCart();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     contact: "",
     email: "",
@@ -16,7 +29,7 @@ const Checkout = () => {
     city: "",
     zip: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Errors>({});
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
   const calculateTotal = () => {
@@ -32,7 +45,7 @@ const Checkout = () => {
   };
 
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors: Errors = {};
     if (!formData.name) newErrors.name = "Name is required";
     if (!formData.contact) newErrors.contact = "Contact is required";
     if (!formData.email) newErrors.email = "Email is required";
@@ -63,7 +76,6 @@ const Checkout = () => {
         {!isOrderPlaced ? (
           <>
             <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-
             {/* Order Summary */}
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
@@ -95,6 +107,7 @@ const Checkout = () => {
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
               <form className="space-y-4" onSubmit={handleCheckout}>
+
                 <div className="flex space-x-4">
                   <div className="w-1/2">
                     <label className="block text-gray-600 font-medium mb-2">Name</label>
@@ -187,9 +200,7 @@ const Checkout = () => {
             <h1 className="text-4xl font-bold mb-4">Thank You!</h1>
             <p className="text-lg mb-8">Your order has been placed successfully.</p>
             <p className="text-gray-500">Your cart is now empty. Browse our shop for more amazing products!</p>
-            <button
-              className="mt-6 bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition"
-            >
+            <button className="mt-6 bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition">
               <Link href="/shop">Continue Shopping</Link>
             </button>
           </div>
