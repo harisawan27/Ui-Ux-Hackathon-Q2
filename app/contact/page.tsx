@@ -1,5 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from "next/link";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { 
   Phone, 
   Facebook, 
@@ -13,11 +16,12 @@ import {
 const ContactPage = () => {
   return (
     <div className="w-full">
+    <Navbar />
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center justify-between">
           {/* Left Content */}
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
+          <div className="absolute pl-6 w-full md:w-1/2 mb-8 md:mb-0">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-navy-900 mb-4">
               Get in touch today!
             </h1>
@@ -25,41 +29,40 @@ const ContactPage = () => {
               We know how large objects will act, but things on a small scale
             </p>
             <div className="mb-6">
-              <p className="font-medium mb-2">Phone: +451 215 215</p>
+              <p className="font-medium mb-2">Phone: +92 123456789</p>
               <p className="font-medium">Fax: +451 215 215</p>
             </div>
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 hover:text-blue-500">
+              <Link href="https://x.com/harisawan27" className="text-gray-600 hover:text-blue-500">
                 <Twitter size={24} />
-              </a>
-              <a href="#" className="text-gray-600 hover:text-blue-500">
+              </Link>
+              <Link href="https://www.facebook.com/profile.php?id=61558545486623" className="text-gray-600 hover:text-blue-500">
                 <Facebook size={24} />
-              </a>
-              <a href="#" className="text-gray-600 hover:text-blue-500">
+              </Link>
+              <Link href="https://www.instagram.com/mharisawan27" className="text-gray-600 hover:text-blue-500">
                 <Instagram size={24} />
-              </a>
-              <a href="#" className="text-gray-600 hover:text-blue-500">
+              </Link>
+              <Link href="https://www.linkedin.com/in/m-haris-awan/" className="text-gray-600 hover:text-blue-500">
                 <Linkedin size={24} />
-              </a>
+              </Link>
             </div>
           </div>
           
           {/* Right Image */}
-          <div className="w-full md:w-1/2">
-            <Image
-              src="/api/placeholder/600/400"
-              alt="Shopping Family"
-              width={600}
-              height={400}
-              className="rounded-lg"
-            />
-          </div>
+          <div className="relative right-0 top-0 m-0 p-0">
+                      <Image
+                        src="/images/contact.png"
+                        alt="Family Shopping"
+                        width={1400}
+                        height={882}
+                      />
+                    </div>
         </div>
       </div>
 
       {/* Visit Office Section */}
-      <div className="bg-gray-50 py-16">
+      <div className="my-12 bg-blue-50 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -74,8 +77,8 @@ const ContactPage = () => {
               <div className="flex justify-center mb-4">
                 <Phone className="w-8 h-8 text-blue-500" />
               </div>
-              <p className="text-sm text-gray-600 mb-2">georgia.young@example.com</p>
-              <p className="text-sm text-gray-600 mb-4">georgia.young@ple.com</p>
+              <p className="text-sm text-gray-600 mb-2">contact.libasg@gmail.com</p>
+              <p className="text-sm text-gray-600 mb-4">+92 123456789</p>
               <div className="mt-4">
                 <button className="text-blue-500 border border-blue-500 px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
                   Get Support
@@ -84,12 +87,12 @@ const ContactPage = () => {
             </div>
 
             {/* Location Card */}
-            <div className="bg-navy-900 p-6 rounded-lg text-center text-white">
+            <div className="bg-blue-900 p-6 rounded-lg text-center text-white">
               <div className="flex justify-center mb-4">
                 <MapPin className="w-8 h-8" />
               </div>
-              <p className="text-sm mb-2">georgia.young@example.com</p>
-              <p className="text-sm mb-4">georgia.young@ple.com</p>
+              <p className="text-sm mb-2">libasg.com</p>
+              <p className="text-sm mb-4">Karachi, Pakistan</p>
               <div className="mt-4">
                 <button className="text-white border border-white px-6 py-2 rounded-full hover:bg-white hover:text-navy-900 transition-colors">
                   Get Support
@@ -102,8 +105,8 @@ const ContactPage = () => {
               <div className="flex justify-center mb-4">
                 <Mail className="w-8 h-8 text-blue-500" />
               </div>
-              <p className="text-sm text-gray-600 mb-2">georgia.young@example.com</p>
-              <p className="text-sm text-gray-600 mb-4">georgia.young@ple.com</p>
+              <p className="text-sm text-gray-600 mb-2">support.libasg@gmail.com</p>
+              <p className="text-sm text-gray-600 mb-2">support.libasg@gmail.com</p>
               <div className="mt-4">
                 <button className="text-blue-500 border border-blue-500 px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
                   Get Support
@@ -121,6 +124,7 @@ const ContactPage = () => {
           Try it free now
         </button>
       </div>
+      <Footer />
     </div>
   );
 };
