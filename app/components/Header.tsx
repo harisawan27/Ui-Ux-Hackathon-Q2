@@ -16,19 +16,19 @@ const Header = () => {
       <p>Follow Us and get a chance to win 80% off</p>
       <div className="flex gap-4">
         <p>Follow Us :</p>
-        <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="h-4">
-          <Link href="https://www.instagram.com/mharisawan27" target="_blank" />
-        </Image>
+          <Link href="https://www.instagram.com/mharisawan27" target="_blank" >
+        <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="h-4" />
+          </Link>
         <Image src="/images/youtube.png" alt="Youtube" width={16} height={16} className="h-4" />
-        <Image src="/images/facebook.png" alt="Facebook" width={16} height={16} className="h-4">
           <Link
             href="https://www.facebook.com/profile.php?id=61558545486623"
             target="_blank"
-          />
-        </Image>
-        <Image src="/images/twitter.png" alt="Twitter" width={16} height={16} className="h-4">
-          <Link href="https://x.com/harisawan27" target="_blank" />
-        </Image>
+          >
+        <Image src="/images/facebook.png" alt="Facebook" width={16} height={16} className="h-4" />
+          </Link>
+          <Link href="https://x.com/harisawan27" target="_blank" >
+        <Image src="/images/twitter.png" alt="Twitter" width={16} height={16} className="h-4" />
+          </Link>
       </div>
     </div>
   );
