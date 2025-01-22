@@ -1,24 +1,15 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { 
-  Phone, 
-  MapPin,
-  Mail
-} from 'lucide-react';
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter
-} from "react-icons/fa";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Phone, MapPin, Mail } from "lucide-react";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const ContactPage = () => {
   return (
     <div className="w-full">
-    <Navbar />
+      <Navbar />
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center justify-between">
@@ -36,30 +27,46 @@ const ContactPage = () => {
             </div>
             {/* Social Media Icons */}
             <div className="flex space-x-4">
-              <Link href="https://x.com/harisawan27" className="text-gray-600 hover:text-blue-500">
+              <Link
+                href="https://x.com/harisawan27"
+                aria-label="Twitter"
+                className="text-gray-600 hover:text-blue-500"
+              >
                 <FaTwitter size={24} />
               </Link>
-              <Link href="https://www.facebook.com/profile.php?id=61558545486623" className="text-gray-600 hover:text-blue-500">
+              <Link
+                href="https://www.facebook.com/profile.php?id=61558545486623"
+                aria-label="Facebook"
+                className="text-gray-600 hover:text-blue-500"
+              >
                 <FaFacebook size={24} />
               </Link>
-              <Link href="https://www.instagram.com/mharisawan27" className="text-gray-600 hover:text-blue-500">
+              <Link
+                href="https://www.instagram.com/mharisawan27"
+                aria-label="Instagram"
+                className="text-gray-600 hover:text-blue-500"
+              >
                 <FaInstagram size={24} />
               </Link>
-              <Link href="https://www.linkedin.com/in/m-haris-awan/" className="text-gray-600 hover:text-blue-500">
+              <Link
+                href="https://www.linkedin.com/in/m-haris-awan/"
+                aria-label="LinkedIn"
+                className="text-gray-600 hover:text-blue-500"
+              >
                 <FaLinkedin size={24} />
               </Link>
             </div>
           </div>
-          
+
           {/* Right Image */}
           <div className="relative right-0 top-0 m-0 p-0">
-                      <Image
-                        src="/images/contact.png"
-                        alt="Family Shopping"
-                        width={1400}
-                        height={882}
-                      />
-                    </div>
+            <Image
+              src="/images/contact.png"
+              alt="Family Shopping"
+              width={1400}
+              height={882}
+            />
+          </div>
         </div>
       </div>
 
@@ -79,7 +86,9 @@ const ContactPage = () => {
               <div className="flex justify-center mb-4">
                 <Phone className="w-8 h-8 text-blue-500" />
               </div>
-              <p className="text-sm text-gray-600 mb-2">contact.libasg@gmail.com</p>
+              <p className="text-sm text-gray-600 mb-2">
+                contact.libasg@gmail.com
+              </p>
               <p className="text-sm text-gray-600 mb-4">+92 123456789</p>
               <div className="mt-4">
                 <button className="text-blue-500 border border-blue-500 px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
@@ -107,8 +116,12 @@ const ContactPage = () => {
               <div className="flex justify-center mb-4">
                 <Mail className="w-8 h-8 text-blue-500" />
               </div>
-              <p className="text-sm text-gray-600 mb-2">support.libasg@gmail.com</p>
-              <p className="text-sm text-gray-600 mb-2">support.libasg@gmail.com</p>
+              <p className="text-sm text-gray-600 mb-2">
+                support.libasg@gmail.com
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                support.libasg@gmail.com
+              </p>
               <div className="mt-4">
                 <button className="text-blue-500 border border-blue-500 px-6 py-2 rounded-full hover:bg-blue-50 transition-colors">
                   Get Support
@@ -121,7 +134,7 @@ const ContactPage = () => {
 
       {/* Let's Talk Section */}
       <div className="container mx-auto px-4 py-16 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8">Let's Talk</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8">Let&apos;s Talk</h2>
         <button className="bg-blue-500 text-white px-8 py-3 rounded-full hover:bg-blue-600 transition-colors">
           Try it free now
         </button>
