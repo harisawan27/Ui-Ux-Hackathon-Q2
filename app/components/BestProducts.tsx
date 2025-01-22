@@ -25,6 +25,7 @@ const urlFor = (source: any) => builder.image(source).width(300).height(300).url
 
 const BestsellerProducts: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   // Fetch product data from Sanity
   useEffect(() => {
@@ -51,6 +52,8 @@ const BestsellerProducts: React.FC = () => {
         setProducts(transformedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false); // Stop the loader
       }
     };
 
@@ -70,7 +73,12 @@ const BestsellerProducts: React.FC = () => {
       </div>
 
       <div className="lg:px-40 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {products.length > 0 ? (
+        {isLoading ? (
+          // Loader UI
+          <div className="col-span-full flex justify-center items-center">
+            <div className="loader border-t-4 border-blue-500 w-12 h-12 rounded-full animate-spin"></div>
+          </div>
+        ) : products.length > 0 ? (
           products.map((product) => (
             <div key={product._id} className="text-center">
               <div className="relative mb-4">
